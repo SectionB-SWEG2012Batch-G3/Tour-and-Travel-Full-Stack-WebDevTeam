@@ -2,10 +2,10 @@
     include_once 'includes/header.php';
     include_once '../dbconfig/connection.php';
 
-    $sql = 'SELECT * FROM tourguide';
+    $sql = 'SELECT * FROM hotel';
     $stmt = $pdo->prepare($sql);
     $stmt->execute();
-    $res = $stmt->fetchAll();
+    $hotels = $stmt->fetchAll();
 ?>
 
     <li>
@@ -17,37 +17,55 @@
 
     <div class="d-grid gap-2">
     <button class="btn btn-primary" type="button"><h1>Hotels</h1></button>
-    
+    <li class="<?php echo ($_GET['active'] === 'index' ? 'active' : '')?>">
+    <?php echo ($_GET['active'] === 'index' ? 'active' : '')?>
+    </li>
     <table class="table">
     <tdead>
         <tr>
         <th scope="col">#</th>
         <th scope="col">Region/city</th>
-        <th scope="col">Name</th>
-        <th scope="col">Ratings</th>
+        <th scope="col">Hotel Name</th>
         <th scope="col">Cost range</th>
+        <th scope="col">Rating</th>
         <th scope="col">Image</th>
-        <th scope="col">Experience</th>
-        <th scope="col">Lang</th>
-        <th scope="col">Salary</th>
         <th scope="col">Action</th>
         </tr>
     </tdead>
     <tbody>
-      <?php foreach ($res as $i => $tourguide):?>
+      <?php foreach ($hotels as $i => $hotel):?>
         <tr>
         <td scope="row"><?php echo $i + 1 ?></td>
-        <td scope="row"><?php echo $tourguide['name']?></td>
-        <td scope="row"></td>
-        <td scope="row"><?php echo $tourguide['email']?></td>
-        <td scope="row"><?php echo $tourguide['age']?></td>    
-        <td scope="row"><?php echo $tourguide['qualification']?></td>      
-        <td scope="row"><?php echo $tourguide['experience']?></td>      
-        <td scope="row"><?php echo $tourguide['lang']?></td>      
-        <td scope="row"><?php echo $tourguide['salaryPerHour']?></td>      
+        <td scope="row"><?php echo $hotel['region_name']?></td>
+        <td scope="row"><?php echo $hotel['hotel_name']?></td>
+        <td scope="row"><?php echo '$'.$hotel['min_price'].' - $'.$hotel['max_price']?></td>             
+        <td scope="row"><?php echo $hotel['rating'].' Star'; ?></td>             
+        <td scope="row"><img src="<?php echo $hotel['image']?>" alt="<?php echo $hotel['region_name']?>"></td>             
         <td scope="row">
-          <a class="btn btn-sm btn-outline-primary">Edit</a>
-          <a class="btn btn-sm btn-outline-danger">Delete</a>
+          <a class="btn btn-sm btn-outline-primary" href="editHotel.php?id=<?php echo $hotel['id']?>&active=hotel">Edit</a>
+          
+          <button type="button" class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-target="#staticBackdrop<?php echo $i?>">
+            Delete
+          </button>
+          
+          <div class="modal fade" id="staticBackdrop<?php echo $i?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title alert alert-danger" id="staticBackdropLabel">Delete</h5>
+                  
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                   Are sure to delete <b><?php echo $hotel['region_name'];?></b> from hotels?
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                  <a href = "deleteHotel.php?id=<?php echo $hotel['id'];?>" class="btn  btn-danger">Yes</a>
+                </div>
+              </div>
+            </div>
+          </div> 
         </td>      
         </tr>
         <tr>
@@ -56,7 +74,7 @@
     </table> 
 
     <div class="d-grid gap-2 col-6 mx-auto">
-      <button class="btn btn-primary" type="button">Add</button>
+      <a class="btn btn-primary" href="addHotel.php?active=hotel">Add</a>
     </div>
  
 

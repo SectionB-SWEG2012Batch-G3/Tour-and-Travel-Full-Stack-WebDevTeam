@@ -46,7 +46,30 @@
         <td scope="row"><?php echo $tourguide['lang']?></td>      
         <td scope="row"><?php echo $tourguide['salaryPerHour']?></td>      
         <td scope="row">
-          <a href = "deleteTourGuide.php?id=<?php echo $tourguide['id'];?>" class="btn btn-sm btn-outline-danger">Delete</a>
+          <!-- <a href = "deleteTourGuide.php?id=<?php echo $tourguide['id'];?>" class="btn btn-sm btn-outline-danger">Delete</a> -->
+          <button type="button" class="btn  btn-danger" data-bs-toggle="modal" data-bs-target="#staticBackdrop<?php echo $i?>">
+            Delete
+          </button>
+
+          <!-- Modal -->
+            <div class="modal fade" id="staticBackdrop<?php echo $i?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title alert alert-danger" id="staticBackdropLabel">Delete</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                  <i class="fa-solid fa-exclamation"></i>
+                    Are sure to delete <?php echo $tourguide['name'];?> from tourguides?
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                    <a href = "deleteTourGuide.php?id=<?php echo $tourguide['id'];?>" class="btn  btn-danger">Yes</a>
+                  </div>
+                </div>
+              </div>
+            </div>
         </td>      
         </tr>
         <tr>
