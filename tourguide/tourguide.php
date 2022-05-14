@@ -1,5 +1,5 @@
 <?php
-    include_once '../../dbconfig/connection.php';
+    include_once '../dbconfig/connection.php';
 
     $sql = 'SELECT * FROM tourguide';
     $stmt = $pdo->prepare($sql);
@@ -16,9 +16,9 @@
         <meta name = "viewport" content = "width = device-width,initial-scale = 1.0">
         <link rel="stylesheet" href="../fontawesome-free-5.15.4-web/css/all.min.css">
         <link rel="stylesheet" href="Profiles/profileCSS.css">
-        <link rel="stylesheet" href="css/footerCSS.css">
-        <link rel="stylesheet" href="css/navStyle.css">
-        <link rel="stylesheet" href="css/HomepageCss.css">
+        <link rel="stylesheet" href="../css/footerCSS.css">
+        <link rel="stylesheet" href="../css/navStyle.css">
+        <link rel="stylesheet" href="../css/HomepageCss.css">
         <script defer src="../JS/NavScript.js"></script>
         <script defer src = "Profiles/js.js"></script>
         <script defer src = "../JS/search-boxScript.js" ></script>
@@ -291,7 +291,7 @@
                 
                         </div>	
                     </div>
-                    <div class="imag"><img src = "images/guide1.jpg ?>" alt = "Guideing tour" width = "100%">
+                    <div class="imag"><img src = "../Admin/<?php echo $tourguide['photo'] ?>" alt = "Guideing tour" width = "100%">
                         <figcaption>Semien Mountain</figcaption>
                     </div>
             </article>
@@ -308,7 +308,7 @@
         <?php if(!(is_null($res))):?>
             <?php foreach($res as $i => $tourguide):?>
                 <div class="guide">
-                    <a href = "images/gud.jpg"><img src = "images/gud.jpg" alt = "Haymanot Demis(tour guide)"></a>
+                    <a href = "../Admin/<?php echo $tourguide['photo'] ?>"><img src = "../Admin/<?php echo $tourguide['photo'] ?>" alt = "Haymanot Demis(tour guide)"></a>
                     <a class = "guideDesc" id = "<?php echo $tourguide['name'];?>" href="#"><?php echo $tourguide['name'].' '.$tourguide['lname'];?>(Tour Guide)</a>
                 </div>
             <?php endforeach; ?>
